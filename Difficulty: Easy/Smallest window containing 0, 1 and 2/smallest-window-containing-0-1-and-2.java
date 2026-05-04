@@ -1,28 +1,24 @@
 class Solution {
     public int smallestSubstring(String s) {
+        // code here
+        int zero = -1;
+        int one = -1;
+        int two = -1;
         
-        int last0 = -1;
-        int last1 = -1;
-        int last2 = -1;
-        
-        int maxLength = Integer.MAX_VALUE;
-        
-        for(int i = 0; i < s.length(); i ++){
-            if(s.charAt(i) == '0') last0 = i;
-            if(s.charAt(i) == '1') last1 = i;
-            if(s.charAt(i) == '2') last2 = i;
+        int minimum = Integer.MAX_VALUE;
+        for(int i = 0; i < s.length(); i++){
+            if(s.charAt(i) == '0') zero = i;
+            if(s.charAt(i) == '1') one = i;
+            if(s.charAt(i) == '2') two = i;
             
-            if(last0 != -1 && last1 != -1 && last2 != -1){
+            if(zero != -1 && one != -1 && two != -1){
+                int minidx = Math.min(zero, Math.min(one, two));
+                int maxidx = i;
                 
-                int currWindow = i - Math.min(last0, Math.min(last1, last2)) + 1;
-                maxLength = Math.min(currWindow, maxLength);
+                minimum  = Math.min(minimum, (maxidx - minidx + 1));
             }
+            
         }
-        if(maxLength == Integer.MAX_VALUE){
-            return -1;
-        }else{
-            return maxLength;
-        }
-        
+        return(minimum == Integer.MAX_VALUE) ? -1 : minimum;
     }
 };

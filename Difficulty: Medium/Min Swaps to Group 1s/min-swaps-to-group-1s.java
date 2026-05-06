@@ -1,32 +1,30 @@
 class Solution {
     public int minSwaps(int[] arr) {
         // code here
-        int ones = 0;
+        int count = 0;
         
         for(int i : arr){
-            if(i == 1){
-                ones++;
+            if( i == 1){
+                count++;
             }
         }
-        if(ones == 0) return -1;
-        int zero = 0;
-        
-        for(int i = 0; i < ones; i++){
+        if(count == 0) return -1;
+        int window = 0;
+        for(int i = 0; i < count; i++){
             if(arr[i] == 0){
-                zero++;
+                window++;
             }
         }
-        int minz = zero;
         
-        for(int i = ones; i < arr.length; i++){
-            if(arr[i] == 0){
-                zero++;
-            }
-            if(arr[i - ones] == 0){
-                zero--;
-            }
-            minz = Math.min(minz, zero);
+        int min = window;
+        
+        for(int i = count; i < arr.length; i++){
+            
+            if(arr[i] == 0) window++;
+            if(arr[i - count] == 0) window--;
+            
+            min = Math.min(min, window);
         }
-        return minz;
+        return min;
     }
 }
